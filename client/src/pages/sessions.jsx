@@ -7,7 +7,16 @@ function Sessions() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    api.get("/sessions").then((res) => setSessions(res.data));
+    api
+    .get("/sessions")
+    .then((res) => {
+      console.log("Fetched sessions:", res.data);
+      setSessions(res.data);
+    })
+    .catch(err => {
+      console.log("sessions error:", err);
+      setError(err.message + " | " + (err.config?.baseURL || "") + (err.config?.url || ""));
+    });
   }, []);
 
   const openSession = (id) => {
