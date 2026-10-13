@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <nav className="bg-white shadow">
+      <nav className="flex items-center gap-6 bg-white px-6 py-4 shadow">
         <h1 className="text-xl font-bold">User Analytics</h1>
         <NavLink to="/" className={linkClass}>
           Sessions

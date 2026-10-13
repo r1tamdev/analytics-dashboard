@@ -5,9 +5,9 @@ const router = express.Router();
 
 router.post("/events", async (req, res) => {
   try {
-    const { sessionId, eventType, url, timestamp, x, y, viewport_width, viewport_height } = req.body;
+    const { session_id, eventType, url, timestamp, x, y, viewport_width, viewport_height } = req.body;
     const event = await Event.create({
-      sessionId,
+      session_id,
       eventType,
       url,
       timestamp,
@@ -25,6 +25,7 @@ router.post("/events", async (req, res) => {
 router.get("/sessions",async (req,res)=>{
   try {
     const sessions = await Event.aggregate([
+      {$match: { session_id: { $ne: null } }},
       {
         $group: {
           _id: "$session_id",

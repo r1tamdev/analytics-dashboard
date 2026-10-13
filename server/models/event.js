@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const eventSchema = new mongoose.Schema({
-  sessionId: { type: String, required: true },
+  session_id: { type: String, required: true },
   eventType:{ type: String, required: true, enum: ['click','page_view'] },
   url:{ type: String, required: true },
   timestamp: { type: Date, default: Date.now },
@@ -11,7 +11,7 @@ const eventSchema = new mongoose.Schema({
   viewport_height: Number,
 });
 
-eventSchema.index({ sessionId: 1, timestamp: 1 });
+eventSchema.index({ session_id: 1, timestamp: 1 });
 eventSchema.index({ url: 1, eventType: 1});
 
 export default mongoose.model("Event", eventSchema);

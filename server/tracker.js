@@ -2,15 +2,15 @@
   var scriptTag = document.currentScript;
   var apiBase = new URL(scriptTag.src).origin;
 
-  var sessionId = localStorage.getItem("sessionId");
+  var sessionId = localStorage.getItem("session_id");
   if(!sessionId){
     sessionId = crypto.randomUUID();
-    localStorage.setItem("sessionId", sessionId);
+    localStorage.setItem("session_id", sessionId);
   }
 
   function sendEvent(data) {
     var event ={
-      sessionId: sessionId,
+      session_id: sessionId,
       url: window.location.href,
       timestamp: new Date().toISOString(),
       viewport_width: window.innerWidth,
