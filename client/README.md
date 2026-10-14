@@ -1,16 +1,52 @@
-# React + Vite
+# Analytics Dashboard: Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React dashboard for the User Analytics app. It shows sessions, each session's user journey, and a click heatmap.
 
-Currently, two official plugins are available:
+For full project setup, API details and trade-offs, see the [main README](../README.md).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
 
-## React Compiler
+- React (Vite)
+- React Router
+- Axios
+- Tailwind CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Setup
 
-## Expanding the ESLint configuration
+```bash
+npm install
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Create a `.env` file:
+
+```
+VITE_API_URL=http://localhost:5000
+```
+
+Start the dev server:
+
+```bash
+npm run dev
+```
+
+The app runs at `http://localhost:5173`. The server must be running at the URL in `VITE_API_URL`.
+
+## Pages
+
+| Route | Page | What it shows |
+|---|---|---|
+| `/` | Sessions | All sessions with event counts. Click one to see its events in order. |
+| `/heatmap` | Heatmap | Pick a page URL to see click positions as dots. |
+
+## Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview the production build |
+
+## Notes
+
+- `src/api.js` holds the Axios instance. It reads the server address from `VITE_API_URL` and adds the `/api` prefix.
+- `index.html` includes the tracking script, so the dashboard tracks its own pages. Change the script URL there when you deploy the server.

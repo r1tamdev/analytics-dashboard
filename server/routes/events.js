@@ -63,7 +63,7 @@ router.get("/heatmap", async (req, res) => {
       return res.status(400).json({ error: "url is required" });
     }
 
-    const clicks = await Event.find({ type: "click", url }).select(
+    const clicks = await Event.find({ eventType: "click", url }).select(
       "x y viewport_w viewport_h -_id"
     );
 

@@ -7,13 +7,17 @@ function Heatmap() {
   const [pages, setPages] = useState([]);
   const [selectedUrl, setSelectedUrl] = useState("");
   const [clicks, setClicks] = useState([]);
+  const [error, setError] = useState("");
 
-  // load the list of pages
+  
   useEffect(() => {
-    api.get("/pages").then((res) => setPages(res.data));
+    api
+    .get("/pages")
+    .then((res) => setPages(res.data))
+    .catch((err) => setError(err.message));
   }, []);
 
-  // load clicks when a page is selected
+  
   useEffect(() => {
     if (!selectedUrl) {
       setClicks([]);
@@ -21,14 +25,18 @@ function Heatmap() {
     }
     api
       .get("/heatmap", { params: { url: selectedUrl } })
-      .then((res) => setClicks(res.data));
+      .then((res) => {
+        console.log("heatmap response:",res.data);
+        setClicks(res.data);
+      })
+      .catch((err) => setError(err.message));
   }, [selectedUrl]);
 
-  // scale click positions to fit our box
-  const dots = clicks
-    .filter((c) => c.viewport_w)
+  
+    const dots = clicks
+    .filter((c) => typeof c.x === "number" && typeof c.y === "number")
     .map((c) => {
-      const scale = BOX_WIDTH / c.viewport_w;
+      const scale = c.viewport_w ? BOX_WIDTH / c.viewport_w : 1;
       return { left: c.x * scale, top: c.y * scale };
     });
 

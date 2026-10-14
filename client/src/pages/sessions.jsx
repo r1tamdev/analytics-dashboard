@@ -5,6 +5,7 @@ function Sessions() {
   const [sessions, setSessions] = useState([]);
   const [selected, setSelected] = useState(null);
   const [events, setEvents] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     api
